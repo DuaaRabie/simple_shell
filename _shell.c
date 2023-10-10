@@ -1,4 +1,5 @@
 #include "main.h"
+
 /**
  * free_all - free argument vector
  * @argv: arguments vector pointer
@@ -45,7 +46,7 @@ int main(void)
 		}
 		if (pid == 0)
 		{
-			execve(argv[0], argv, NULL);
+			execve(argv[0], argv, environ);
 			perror("./hsh");
 			free_all(argv, cmd);
 			break;

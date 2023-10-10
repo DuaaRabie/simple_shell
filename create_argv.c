@@ -32,7 +32,7 @@ char **create_argv(char *cmd)
 	cmd_copy = malloc(sizeof(char) * _strlen(cmd));
 	if (check_alloc(cmd_copy) == -1)
 		return (NULL);
-	strcpy(cmd_copy, cmd);
+	_strcpy(cmd_copy, cmd);
 
 	token = strtok(cmd, delim);
 	while (token != NULL)
