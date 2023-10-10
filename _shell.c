@@ -34,14 +34,9 @@ int main(void)
 		argv = create_argv(cmd);
 		if (argv == NULL)
 			return (-1);
-		if (argv[0][0] == 'e' && argv[0][1] == 'x')
-		{
-			if (argv[0][2] == 'i' && argv[0][3] == 't')
-			{
-				free_all(argv, cmd);
-				break;
-			}
-		}
+		if (exit_check(argv, cmd) == -1)
+			break;
+
 		pid = fork();
 		if (pid == -1)
 		{
