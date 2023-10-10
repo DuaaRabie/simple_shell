@@ -59,5 +59,8 @@ char **create_argv(char *cmd)
 
 	free(cmd_copy);
 
+	if (argv == NULL)
+		free_all(argv, cmd);
+
 	return (argv);
 }

@@ -9,5 +9,7 @@
 
 unsigned int _strlen(char *str);
 char **create_argv(char *cmd);
+void free_all(char **argv, char *cmd);
+char *read_cmd(void);
 
 #endif
