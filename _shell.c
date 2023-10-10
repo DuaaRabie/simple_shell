@@ -31,12 +31,14 @@ int main(void)
 	while (1)
 	{
 		cmd = NULL;
-		printf("($) ");
+		if (isatty(STDIN_FILENO))
+			printf("($) ");
 		cmd_check = getline(&cmd, &cmd_len, stdin);
 		if (cmd_check == -1)
 		{
+			if (isatty(STDIN_FILENO))
+				printf("\n");
 			free(cmd);
-			printf("\n");
 			break;
 		}
 		argv = create_argv(cmd);
@@ -44,6 +46,11 @@ int main(void)
 		{
 			free_all(argv, cmd);
 			return (-1);
+		}
+		if (argv[0][0] == 'e' && argv[0][1] == 'x' && argv[0][2] == 'i' && argv[0][3] == 't')
+		{
+			free_all(argv, cmd);
+			break;
 		}
 		pid = fork();
 		if (pid == -1)
@@ -53,14 +60,13 @@ int main(void)
 		}
 		if (pid == 0)
 		{
-			printf("I am the child\n");
 			execve(argv[0], argv, NULL);
+			perror("./hsh");
 			free_all(argv, cmd);
 			break;
 		}
 		wait(NULL);
 		free_all(argv, cmd);
-		printf("I am the parent\n");
 	}
 	return (0);
 }

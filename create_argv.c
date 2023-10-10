@@ -52,7 +52,6 @@ char **create_argv(char *cmd)
 		if (check_alloc(argv[i]) == -1)
 			return (NULL);
 		strcpy(argv[i], token);
-		printf("argv[%d] : %s\n", i, argv[i]);
 		token = strtok(NULL, delim);
 		i++;
 	}
