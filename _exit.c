@@ -12,7 +12,7 @@ int exit_check(char **argv, char *cmd)
 	{
 		if (argv[0][2] == 'i' && argv[0][3] == 't')
 		{
-			free_all(argv, cmd);
+			free_all(argv, cmd, NULL);
 			return (-1);
 		}
 	}

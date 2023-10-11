@@ -62,3 +62,20 @@ char *_strcat(char *dest, char *src)
 	}
 	return (dest);
 }
+
+/**
+ * _strdup - copy string by allocating memory dynamically
+ * @str: string to be copied
+ * Return: pointer to the copy
+ */
+char *_strdup(char *str)
+{
+	char *copy = malloc(_strlen(str) + 1);
+
+	if (copy == NULL)
+		return (NULL);
+
+	_strcpy(copy, str);
+
+	return (copy);
+}
