@@ -51,7 +51,7 @@ char **create_argv(char *cmd)
 		argv[i] = malloc(sizeof(char) * _strlen(token));
 		if (check_alloc(argv[i]) == -1)
 			return (NULL);
-		strcpy(argv[i], token);
+		_strcpy(argv[i], token);
 		token = strtok(NULL, delim);
 		i++;
 	}

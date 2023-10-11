@@ -19,7 +19,8 @@ char *_strdup(char *str);
 char **create_argv(char *cmd);
 void free_all(char **argv, char *cmd, char *cmd_path);
 char *read_cmd(void);
-int exit_check(char **argv, char *cmd);
+int built_cmd(char **argv, char *cmd);
 char *get_path(char **argv);
+void _env(void);
 
 #endif

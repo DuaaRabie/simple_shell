@@ -20,13 +20,13 @@ void free_all(char **argv, char *cmd, char *cmd_path)
 }
 
 /**
- * fork_process - fork for executable files
+ * exe_cmd - fork for executable command
  * @argv: arguments vector
  * @cmd: the command line
  * @cmd_path: the command path
  * Return: nothing
  */
-int fork_process(char **argv, char *cmd, char *cmd_path)
+int exe_cmd(char **argv, char *cmd, char *cmd_path)
 {
 	pid_t pid;
 
@@ -46,6 +46,8 @@ int fork_process(char **argv, char *cmd, char *cmd_path)
 		}
 	}
 	wait(NULL);
+	if (argv[0][0] != 'c' && argv[0][1] != 'l'
+			&& argv[0][2] != 'e' && argv[0][3] != 'r')
 	free_all(argv, cmd, cmd_path);
 	return (1);
 }
@@ -58,7 +60,7 @@ int fork_process(char **argv, char *cmd, char *cmd_path)
 int main(void)
 {
 	char *cmd = NULL, **argv = NULL, *cmd_path = NULL;
-	int fork_return;
+	int exe_return, cmd_check;
 
 	while (1)
 	{
@@ -68,21 +70,24 @@ int main(void)
 		argv = create_argv(cmd);
 		if (argv == NULL)
 			return (-1);
-		if (exit_check(argv, cmd) == -1)
-			break;
-		cmd_path = get_path(argv);
-		if (cmd_path == NULL)
+		cmd_check = built_cmd(argv, cmd);
+
+		if (cmd_check == 0)
 		{
-			free_all(argv, cmd, cmd_path);
-			perror("./hsh");
-		}
-		else
-		{
-			fork_return = fork_process(argv, cmd, cmd_path);
-			if (fork_return == -1)
-				return (-1);
-			else if (fork_return == 0)
-				break;
+			cmd_path = get_path(argv);
+			if (cmd_path == NULL)
+			{
+				free_all(argv, cmd, cmd_path);
+				perror("./hsh");
+			}
+			else
+			{
+				exe_return = exe_cmd(argv, cmd, cmd_path);
+				if (exe_return == -1)
+					return (exe_return);
+				else if (exe_return == 0)
+					return (exe_return);
+			}
 		}
 	}
 	return (0);
