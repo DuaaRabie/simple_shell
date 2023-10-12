@@ -15,6 +15,7 @@ unsigned int _strlen(char *str);
 char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
 char *_strdup(char *str);
+char *_strchr(char *s, char c);
 
 char **create_argv(char *cmd);
 void free_all(char **argv, char *cmd, char *cmd_path);
@@ -22,5 +23,7 @@ char *read_cmd(void);
 int built_cmd(char **argv, char *cmd);
 char *get_path(char **argv);
 void _env(void);
+
+int _getline(char **line, size_t *size, FILE *fp);
 
 #endif

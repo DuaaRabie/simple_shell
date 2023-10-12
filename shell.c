@@ -40,8 +40,9 @@ int exe_cmd(char **argv, char *cmd, char *cmd_path)
 	{
 		if (execve(cmd_path, argv, environ) == -1)
 		{
+			write(1, argv[0], _strlen(argv[0]));
+			perror(" ");
 			free_all(argv, cmd, cmd_path);
-			perror("./hsh");
 			return (0);
 		}
 	}
@@ -77,8 +78,11 @@ int main(void)
 			cmd_path = get_path(argv);
 			if (cmd_path == NULL)
 			{
+				write(1, "hsh: ", 5);
+				write(1, argv[0], _strlen(argv[0]));
+				write(1, ": ", 2);
+				perror("");
 				free_all(argv, cmd, cmd_path);
-				perror("./hsh");
 			}
 			else
 			{
