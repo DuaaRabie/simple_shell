@@ -12,7 +12,9 @@ char *get_path(char **argv)
 	struct stat statbuf;
 
 	if (stat(argv[0], &statbuf) == 0)
+	{
 		return (argv[0]);
+	}
 
 	all_paths = getenv("PATH");
 	paths_copy = _strdup(all_paths);
@@ -36,7 +38,7 @@ char *get_path(char **argv)
 		free(cmd_path);
 		path_token = strtok(NULL, ":");
 	}
-
+	
 	free(paths_copy);
 	return (NULL);
 }

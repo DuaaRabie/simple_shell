@@ -1,5 +1,12 @@
 #include "main.h"
 
+/**
+ * _getline - custome getline function
+ * @line: pointer to store the line in
+ * @size: pointer to the size of the line
+ * @fp: file pointer to read from
+ * Return: number of read characters | -1 fail
+ */
 int _getline(char **line, size_t *size, FILE *fp)
 {
 	static char buffer[1024] = {0};
@@ -14,7 +21,7 @@ int _getline(char **line, size_t *size, FILE *fp)
 			total_read += num_read;
 			if (num_read == (long int)-1)
 				return (-1);
-			if (num_read == (long int)0)
+			if (num_read == 0)
 				return (-1);
 			if ((size_t)total_read >= sizeof(buffer) - 1)
 				return (-1);

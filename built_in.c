@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * built_in - exit the shell
+ * built_cmd - exit the shell
  * @argv: arguments vector
  * @cmd: command
  * Return: -1 for exit || 0

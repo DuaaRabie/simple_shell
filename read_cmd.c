@@ -12,12 +12,12 @@ char *read_cmd(void)
 	ssize_t cmd_check;
 
 	if (isatty(STDIN_FILENO))
-		write(1,"($) ", 4);
+		write(1, "($) ", 4);
 	cmd_check = _getline(&cmd, &cmd_len, stdin);
 	if (cmd_check == -1)
 	{
 		if (isatty(STDIN_FILENO))
-			printf("\n");
+			write(1, "\n", 1);
 		free(cmd);
 		return (NULL);
 	}

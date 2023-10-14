@@ -40,8 +40,7 @@ int exe_cmd(char **argv, char *cmd, char *cmd_path)
 	{
 		if (execve(cmd_path, argv, environ) == -1)
 		{
-			write(1, argv[0], _strlen(argv[0]));
-			perror(" ");
+			perror("");
 			free_all(argv, cmd, cmd_path);
 			return (0);
 		}
@@ -49,20 +48,22 @@ int exe_cmd(char **argv, char *cmd, char *cmd_path)
 	wait(NULL);
 	if (argv[0][0] != 'c' && argv[0][1] != 'l'
 			&& argv[0][2] != 'e' && argv[0][3] != 'r')
-	free_all(argv, cmd, cmd_path);
+		free_all(argv, cmd, cmd_path);
 	return (1);
 }
 
 /**
  * main - entry point
- *
+ * @ac: count of arguments
+ * @av: vector of arguments
  * Return: 0 success | -1 fail
  */
-int main(void)
+int main(int ac, char **av)
 {
 	char *cmd = NULL, **argv = NULL, *cmd_path = NULL;
 	int exe_return, cmd_check;
 
+	(void)ac;
 	while (1)
 	{
 		cmd = read_cmd();
@@ -71,27 +72,32 @@ int main(void)
 		argv = create_argv(cmd);
 		if (argv == NULL)
 			return (-1);
-		cmd_check = built_cmd(argv, cmd);
 
-		if (cmd_check == 0)
-		{
+		if ((_strchr(argv[0], '/')) == NULL)
 			cmd_path = get_path(argv);
-			if (cmd_path == NULL)
+
+		if (cmd_path == NULL)
+		{
+			cmd_check = built_cmd(argv, cmd);
+			if (cmd_check == 0)
 			{
-				write(1, "hsh: ", 5);
-				write(1, argv[0], _strlen(argv[0]));
-				write(1, ": ", 2);
-				perror("");
+				if (_strchr(argv[0], '/'))
+					print_error('d', argv, av);
+				else
+				{
+					cmd_path = NULL;
+					print_error('c', argv, av);
+				}
 				free_all(argv, cmd, cmd_path);
 			}
-			else
-			{
-				exe_return = exe_cmd(argv, cmd, cmd_path);
-				if (exe_return == -1)
-					return (exe_return);
-				else if (exe_return == 0)
-					return (exe_return);
-			}
+		}
+		else
+		{
+			exe_return = exe_cmd(argv, cmd, cmd_path);
+			if (exe_return == -1)
+				return (exe_return);
+			else if (exe_return == 0)
+				return (exe_return);
 		}
 	}
 	return (0);

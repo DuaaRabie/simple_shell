@@ -23,6 +23,7 @@ char *read_cmd(void);
 int built_cmd(char **argv, char *cmd);
 char *get_path(char **argv);
 void _env(void);
+void print_error(char ch, char **argv, char **av);
 
 int _getline(char **line, size_t *size, FILE *fp);
 
