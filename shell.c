@@ -46,9 +46,6 @@ int exe_cmd(char **argv, char *cmd, char *cmd_path)
 		}
 	}
 	wait(NULL);
-	if (argv[0][0] != 'c' && argv[0][1] != 'l'
-			&& argv[0][2] != 'e' && argv[0][3] != 'r')
-		free_all(argv, cmd, cmd_path);
 	return (1);
 }
 
@@ -61,7 +58,7 @@ int exe_cmd(char **argv, char *cmd, char *cmd_path)
 int main(int ac, char **av)
 {
 	char *cmd = NULL, **argv = NULL, *cmd_path = NULL;
-	int exe_return, cmd_check;
+	int exe_return, built_check;
 
 	(void)ac;
 	while (1)
@@ -71,34 +68,37 @@ int main(int ac, char **av)
 			break;
 		argv = create_argv(cmd);
 		if (argv == NULL)
-			return (-1);
-
-		if ((_strchr(argv[0], '/')) == NULL)
-			cmd_path = get_path(argv);
-
-		if (cmd_path == NULL)
 		{
-			cmd_check = built_cmd(argv, cmd);
-			if (cmd_check == 0)
+			free_all(argv, cmd, NULL);
+			return (-1);
+		}
+		built_check = built_cmd(argv, cmd);
+		if (built_check == 0)
+		{
+			cmd_path = get_path(argv);
+			if (cmd_path == NULL)
 			{
-				if (_strchr(argv[0], '/'))
-					print_error('d', argv, av);
-				else
-				{
-					cmd_path = NULL;
+				if ((_strchr(argv[0], '/')) == NULL)
 					print_error('c', argv, av);
-				}
-				free_all(argv, cmd, cmd_path);
+				else
+					print_error('d', argv, av);
+				if (isatty(STDIN_FILENO))
+					free_all(argv, cmd, cmd_path);
+			}
+			else
+			{
+				exe_return = exe_cmd(argv, cmd, cmd_path);
+				if (argv[0][0] != 'c' && argv[0][1] != 'l'
+						&& argv[0][2] != 'e' && argv[0][3] != 'r')
+					free_all(argv, cmd, cmd_path);
+				if (exe_return == -1)
+					return (exe_return);
+				else if (exe_return == 0)
+					return (exe_return);
 			}
 		}
-		else
-		{
-			exe_return = exe_cmd(argv, cmd, cmd_path);
-			if (exe_return == -1)
-				return (exe_return);
-			else if (exe_return == 0)
-				return (exe_return);
-		}
 	}
+
 	return (0);
 }
+
