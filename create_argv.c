@@ -23,8 +23,7 @@ int check_alloc(void *ptr)
  */
 char **create_argv(char *cmd)
 {
-	char *token = NULL, *cmd_copy= NULL;
-	char **argv = NULL;
+	char *token = NULL, *cmd_copy = NULL, **argv = NULL;
 	const char *delim = " \n";
 	size_t tokens_count = 1;
 	int i = 0, j = 0;
@@ -33,14 +32,12 @@ char **create_argv(char *cmd)
 	if (check_alloc(cmd_copy) == -1)
 		return (NULL);
 	_strcpy(cmd_copy, cmd);
-
 	token = strtok(cmd_copy, delim);
 	while (token != NULL)
 	{
 		tokens_count++;
 		token = strtok(NULL, delim);
 	}
-
 	argv = malloc(sizeof(char *) * tokens_count);
 	if (check_alloc(argv) == -1)
 	{
@@ -64,8 +61,6 @@ char **create_argv(char *cmd)
 		i++;
 	}
 	argv[i] = NULL;
-
 	free(cmd_copy);
-
 	return (argv);
 }

@@ -46,6 +46,9 @@ int exe_cmd(char **argv, char *cmd, char *cmd_path)
 		}
 	}
 	wait(NULL);
+	if (argv[0][0] != 'c' && argv[0][1] != 'l'
+			&& argv[0][2] != 'e' && argv[0][3] != 'r')
+		free_all(argv, cmd, cmd_path);
 	return (1);
 }
 
@@ -88,9 +91,6 @@ int main(int ac, char **av)
 			else
 			{
 				exe_return = exe_cmd(argv, cmd, cmd_path);
-				if (argv[0][0] != 'c' && argv[0][1] != 'l'
-						&& argv[0][2] != 'e' && argv[0][3] != 'r')
-					free_all(argv, cmd, cmd_path);
 				if (exe_return == -1)
 					return (exe_return);
 				else if (exe_return == 0)
@@ -98,7 +98,6 @@ int main(int ac, char **av)
 			}
 		}
 	}
-
 	return (0);
 }
 

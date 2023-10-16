@@ -38,7 +38,7 @@ char *get_path(char **argv)
 		free(cmd_path);
 		path_token = strtok(NULL, ":");
 	}
-	
+
 	free(paths_copy);
 	return (NULL);
 }
