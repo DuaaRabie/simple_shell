@@ -9,8 +9,8 @@
  */
 void print_error(char ch, char **argv, char **av)
 {
-	char c[] = ": command not found\n";
-	char d[] = "No such file or directory\n";
+/*	char c[] = ": command not found\n";*/
+	char d[] = ": No such file or directory\n";
 
 	if (isatty(STDIN_FILENO))
 	{
@@ -20,10 +20,9 @@ void print_error(char ch, char **argv, char **av)
 		switch (ch)
 		{
 			case 'c':
-				write(1, c, _strlen(c));
+				write(1, d, _strlen(d));
 				break;
 			case 'd':
-				write(1, ": ", 2);
 				write(1, d, _strlen(d));
 				break;
 		}
