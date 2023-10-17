@@ -8,11 +8,12 @@
 unsigned int _strlen(char *str)
 {
 	unsigned int count = 0;
+	int i = 0;
 
-	while (*str)
+	while (str[i])
 	{
 		count++;
-		str++;
+		i++;
 	}
 	return (count);
 }
@@ -32,10 +33,11 @@ char *_strcpy(char *dest, char *src)
 	{
 		length += 1;
 	}
-	for (count = 0; count <= length; count++)
+	for (count = 0; count < length; count++)
 	{
 		dest[count] = src[count];
 	}
+	dest[length] = '\0';
 	return (dest);
 }
 
@@ -60,6 +62,7 @@ char *_strcat(char *dest, char *src)
 		dest[i] = src[j];
 		j++;
 	}
+	dest[total_length] = '\0';
 	return (dest);
 }
 
@@ -79,8 +82,6 @@ char *_strdup(char *str)
 
 	return (copy);
 }
-
-#include "main.h"
 
 /**
  * *_strchr - locates a character in a string
@@ -109,4 +110,3 @@ char *_strchr(char *s, char c)
 
 	return ('\0');
 }
-

@@ -23,20 +23,17 @@ void check_line(char **line, size_t *size, char *buffer, char *ptr, int *round)
 {
 	static int newlines;
 	int i = 0, check_line = 0;
+	char *nptr = NULL;
 
 	if (newlines == 0)
 	{
-		ptr = strdup(buffer);
-		while (*ptr)
-		{
-			if (*ptr == '\n')
+		while (buffer[i])
+			if (buffer[i++] == '\n')
 				newlines++;
-			ptr++;
-		}
 	}
 	if (newlines > 1 && *round < newlines)
 	{
-		ptr = _strdup(buffer);
+		ptr = strdup(buffer);
 		for (i = 0; ptr[i] != '\0'; i++)
 		{
 			if (ptr[i] == '\n')
@@ -46,16 +43,20 @@ void check_line(char **line, size_t *size, char *buffer, char *ptr, int *round)
 					*round = *round + 1;
 					ptr[++i] = '\0';
 					*size = _strlen(ptr);
+					free(*line);
 					*line = _strdup(ptr);
 					break;
 				}
 				else
 				{
-					ptr = &ptr[++i];
+					nptr = _strdup(&ptr[++i]);
+					free(ptr);
+					ptr = nptr;
 					i = 0;
 				}
 			}
 		}
+		free(ptr);
 	}
 	if (*round == newlines)
 		reset(round, &newlines);
@@ -82,15 +83,11 @@ int _getline(char **line, size_t *size, FILE *fp)
 			num_read = read(STDIN_FILENO,
 					buffer + total_read, sizeof(buffer) - total_read - 1);
 			total_read += num_read;
-			if (num_read == (long int)-1)
+			if ((num_read == (long int)-1) || (num_read == 0 && total_read == 0)
+					|| ((size_t)total_read >= sizeof(buffer) - 1))
 				return (-1);
-			if (num_read == 0 && total_read == 0)
-				return (-1);
-			if (num_read == 0 && total_read != 0)
-				break;
-			if ((size_t)total_read >= sizeof(buffer) - 1)
-				return (-1);
-			if (_strchr(buffer, '\n') != NULL)
+			if ((_strchr(buffer, '\n') != NULL)
+					|| (num_read == 0 && total_read != 0))
 				break;
 		}
 		buffer[total_read] = '\0';

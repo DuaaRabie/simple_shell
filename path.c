@@ -17,6 +17,8 @@ char *get_path(char **argv)
 	}
 
 	all_paths = getenv("PATH");
+	if (all_paths == NULL)
+		return (NULL);
 	paths_copy = _strdup(all_paths);
 
 	path_token = strtok(paths_copy, ":");
