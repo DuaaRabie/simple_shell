@@ -14,7 +14,8 @@ void print_error(char ch, char **argv, char **av)
 
 	if (isatty(STDIN_FILENO))
 	{
-		write(1, "hsh: ", 5);
+		write(1, av[0], _strlen(av[0]));
+		write(1, ": ", 2);
 		write(1, argv[0], _strlen(argv[0]));
 		switch (ch)
 		{
