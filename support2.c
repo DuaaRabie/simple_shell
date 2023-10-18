@@ -1,9 +1,10 @@
 #include "main.h"
 
 /**
- * _strcmp - compare two strings
+ * _strncmp - compare two strings
  * @s1: pointer to first string
  * @s2: pointer to second string
+ * @n: size to compare
  * Return: 0 equal
  * negative value if s1 is less than s2
  * positive value if s1 is greater than s2

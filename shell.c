@@ -21,9 +21,10 @@ void free_all(char **argv, char *cmd, char *cmd_path)
 
 /**
  * exe_cmd - fork for executable command
- * @argv: arguments vector
+ * @argv: command vector
  * @cmd: the command line
  * @cmd_path: the command path
+ * @av: arguments vector
  * Return: nothing
  */
 int exe_cmd(char **argv, char *cmd, char *cmd_path, char **av)

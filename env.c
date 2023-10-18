@@ -29,7 +29,7 @@ int _setenv(char *var_name, char *var_value, int flag)
 
 	if (var_name == NULL || var_value == NULL)
 	{
-		perror("no arguments");
+		perror("few arguments");
 		return (-1);
 	}
 	check = getenv(var_name);
@@ -76,6 +76,11 @@ int _unsetenv(char *var_name)
 	char **env = environ, *check = NULL;
 	int i = 0;
 
+	if (var_name == NULL)
+	{
+		perror("few arguments");
+		return (-1);
+	}
 	check = getenv(var_name);
 	if (check != NULL)
 	{
