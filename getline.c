@@ -85,7 +85,10 @@ int _getline(char **line, size_t *size, FILE *fp)
 			total_read += num_read;
 			if ((num_read == (long int)-1) || (num_read == 0 && total_read == 0)
 					|| ((size_t)total_read >= sizeof(buffer) - 1))
+			{
+				perror("");
 				return (-1);
+			}
 			if ((_strchr(buffer, '\n') != NULL)
 					|| (num_read == 0 && total_read != 0))
 				break;
