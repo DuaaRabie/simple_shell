@@ -6,7 +6,7 @@
  * @cmd: command
  * Return: nothing
  */
-void exit_fun(char **argv, char *cmd)
+int exit_fun(char **argv, char *cmd)
 {
 	int exit_value = 0, i = 0;
 /*	static int j;*/
@@ -27,7 +27,7 @@ void exit_fun(char **argv, char *cmd)
 			write(1, argv[1], _strlen(argv[1]));
 			write(1, not_num, _strlen(not_num));
 			exit_value = 0;
-			break;
+			return (3);
 
 		}
 	}
