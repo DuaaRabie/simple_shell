@@ -8,6 +8,15 @@
  */
 int built_cmd(char **argv, char *cmd)
 {
+	char *copy = _strdup(cmd);
+
+	if (strtok(copy, " \n") == NULL)
+	{
+		free_all(argv, cmd, copy);
+		return (2);
+	}
+	free(copy);
+
 	if (argv[0][0] == 'e' && argv[0][1] == 'x'
 			&& argv[0][2] == 'i' && argv[0][3] == 't')
 		exit_fun(argv, cmd);
