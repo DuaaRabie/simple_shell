@@ -20,6 +20,7 @@ void _env(void)
  * @i: location of var in the array
  * @var_name: variable name
  * @var_value: variable value
+ * @env: environment variable
  * Return: nothing
  */
 int copy_var(char *var_name, char *var_value, int i, char **env)
@@ -63,7 +64,7 @@ int _setenv(char *var_name, char *var_value, int flag)
 		while (env[i])
 			i++;
 		if (copy_var(var_name, var_value, i, env) == -1)
-				return (-1);
+			return (-1);
 		env[++i] = NULL;
 	}
 	if (check != NULL && flag != 0)
@@ -94,7 +95,7 @@ int _unsetenv(char *var_name)
 	if (var_name == NULL)
 	{
 		perror("few arguments");
-		return (0);
+		return (-1);
 	}
 	check = getenv(var_name);
 	if (check != NULL)
@@ -102,7 +103,7 @@ int _unsetenv(char *var_name)
 		while (env[i] && _strncmp(env[i], var_name, _strlen(var_name)) != 0)
 			i++;
 		if (env[i] == NULL)
-			return (0);
+			return (-1);
 		free(env[i]);
 		for (; env[i]; i++)
 			env[i] = env[i + 1];

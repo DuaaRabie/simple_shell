@@ -16,6 +16,7 @@ char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
 char *_strdup(char *str);
 char *_strchr(char *s, char c);
+int _strcmp(char *s1, char *s2);
 int _strncmp(char *s1, char *s2, int n);
 
 char **create_argv(char *cmd);
@@ -28,7 +29,7 @@ void print_error(char ch, char **argv, char **av);
 void exit_fun(char **argv, char *cmd);
 int _setenv(char *var_name, char *var_value, int flag);
 int _unsetenv(char *var_name);
-
+void _cd(char *dir);
 int _getline(char **line, size_t *size, FILE *fp);
 
 #endif
