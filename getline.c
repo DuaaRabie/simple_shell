@@ -76,6 +76,9 @@ int _getline(char **line, size_t *size, FILE *fp)
 	ssize_t num_read = 1, total_read = 0;
 	static int round;
 
+	if (fp == NULL)
+		return (-1);
+
 	if (fp == stdin && round == 0)
 	{
 		while (num_read)
@@ -83,7 +86,12 @@ int _getline(char **line, size_t *size, FILE *fp)
 			num_read = read(STDIN_FILENO,
 					buffer + total_read, sizeof(buffer) - total_read - 1);
 			total_read += num_read;
-			if ((num_read == (long int)-1) || (num_read == 0 && total_read == 0)
+			if (num_read == (long int)-1)
+			{
+				perror("");
+				return (-1);
+			}
+			if ((num_read == 0 && total_read == 0)
 					|| ((size_t)total_read >= sizeof(buffer) - 1))
 				return (-1);
 			if ((_strchr(buffer, '\n') != NULL)
