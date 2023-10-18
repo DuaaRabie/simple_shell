@@ -15,7 +15,7 @@ char *get_path(char **argv)
 	{
 		return (argv[0]);
 	}
-	if (argv[0][0] == '.' && argv[0][1] ==  '/')
+	if ((argv[0][0] == '.' && argv[0][1] ==  '/') || (argv[0][0] == '/'))
 		return (argv[0]);
 
 	all_paths = getenv("PATH");

@@ -26,7 +26,7 @@ void free_all(char **argv, char *cmd, char *cmd_path)
  * @cmd_path: the command path
  * Return: nothing
  */
-int exe_cmd(char **argv, char *cmd, char *cmd_path)
+int exe_cmd(char **argv, char *cmd, char *cmd_path, char **av)
 {
 	pid_t pid;
 
@@ -40,7 +40,7 @@ int exe_cmd(char **argv, char *cmd, char *cmd_path)
 	{
 		if (execve(cmd_path, argv, environ) == -1)
 		{
-			perror("");
+			print_error('d', argv, av);
 			free_all(argv, cmd, cmd_path);
 			return (0);
 		}
@@ -93,7 +93,7 @@ int main(int ac, char **av)
 					error_msg(av, argv);
 				else
 				{
-					exe_return = exe_cmd(argv, cmd, cmd_path);
+					exe_return = exe_cmd(argv, cmd, cmd_path, av);
 					if (exe_return == -1)
 						return (exe_return);
 					else if (exe_return == 0)
