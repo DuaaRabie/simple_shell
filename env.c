@@ -16,6 +16,31 @@ void _env(void)
 }
 
 /**
+ * copy_var - copy name and value
+ * @i: location of var in the array
+ * @var_name: variable name
+ * @var_value: variable value
+ * Return: nothing
+ */
+int copy_var(char *var_name, char *var_value, int i, char **env)
+{
+	int new_len = _strlen(var_name) + _strlen(var_value) + 2;
+	char *temp = NULL;
+
+	temp = realloc(env[i], sizeof(char) * new_len);
+	if (temp == NULL)
+	{
+		perror("allocation faild");
+		return (-1);
+	}
+	env[i] = temp;
+	_strcpy(env[i], var_name);
+	_strcat(env[i], "=");
+	_strcat(env[i], var_value);
+	return (0);
+}
+
+/**
  * _setenv - set environment variable
  * @var_name: name of the variable
  * @var_value: value of the variable
@@ -24,8 +49,8 @@ void _env(void)
  */
 int _setenv(char *var_name, char *var_value, int flag)
 {
-	char *check = NULL, **env = environ, *temp = NULL;
-	int i = 0, new_len = _strlen(var_name) + _strlen(var_value) + 2;
+	char *check = NULL, **env = environ;
+	int i = 0;
 
 	if (var_name == NULL || var_value == NULL)
 	{
@@ -37,13 +62,7 @@ int _setenv(char *var_name, char *var_value, int flag)
 	{
 		while (env[i])
 			i++;
-		temp = realloc(env[i], sizeof(char) * new_len);
-		if (temp == NULL)
-			return (-1);
-		env[i] = temp;
-		_strcpy(env[i], var_name);
-		_strcat(env[i], "=");
-		_strcat(env[i], var_value);
+		copy_var(var_name, var_value, i, env);
 		env[++i] = NULL;
 	}
 	if (check != NULL && flag != 0)
@@ -55,13 +74,8 @@ int _setenv(char *var_name, char *var_value, int flag)
 			perror("variable not found");
 			return (-1);
 		}
-		temp = realloc(env[i], sizeof(char) * new_len);
-		if (temp == NULL)
+		if (copy_var(var_name, var_value, i, env) == -1)
 			return (-1);
-		env[i] = temp;
-		_strcpy(env[i], var_name);
-		_strcat(env[i], "=");
-		_strcat(env[i], var_value);
 	}
 	return (0);
 }
