@@ -24,7 +24,7 @@ int built_cmd(char **argv, char *cmd);
 char *get_path(char **argv);
 void _env(void);
 void print_error(char ch, char **argv, char **av);
-int exit_fun(char **argv, char *cmd);
+void exit_fun(char **argv, char *cmd);
 
 int _getline(char **line, size_t *size, FILE *fp);
 
