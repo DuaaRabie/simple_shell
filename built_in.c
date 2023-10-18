@@ -6,7 +6,7 @@
  * @cmd: command
  * Return: -1 for exit || 0
  */
-int built_cmd(char **argv, char *cmd)
+int built_cmd(char **argv, char **av, char *cmd)
 {
 	char *copy = _strdup(cmd);
 
@@ -39,7 +39,7 @@ int built_cmd(char **argv, char *cmd)
 	}
 	if (_strcmp(argv[0], "cd") == 0)
 	{
-		_cd(argv[1]);
+		_cd(argv[1], argv, av);
 		free_all(argv, cmd, NULL);
 		return (1);
 	}

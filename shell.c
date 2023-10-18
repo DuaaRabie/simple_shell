@@ -60,10 +60,15 @@ int exe_cmd(char **argv, char *cmd, char *cmd_path, char **av)
  */
 void error_msg(char **av, char **argv)
 {
-	if ((_strchr(argv[0], '/')) == NULL)
-		print_error('c', argv, av);
-	else
+	if (isatty(STDIN_FILENO))
 		print_error('d', argv, av);
+	else
+	{
+		if ((_strchr(argv[0], '/')) == NULL)
+			print_error('c', argv, av);
+		else
+			print_error('d', argv, av);
+	}
 }
 
 /**
@@ -88,7 +93,7 @@ int main(int ac, char **av)
 			argv = create_argv(cmd);
 			if (argv == NULL)
 				return (-1);
-			built_check = built_cmd(argv, cmd);
+			built_check = built_cmd(argv, av, cmd);
 			if (built_check == 0)
 			{
 				cmd_path = get_path(argv);

@@ -5,8 +5,8 @@
  * @dir: directory
  * Return: nothing
  */
-void _cd(char *dir)
+void _cd(char *dir, char **argv, char **av)
 {
 	if (chdir(dir) != 0)
-		perror("chdir failed");
+		print_error('d', argv, av);
 }

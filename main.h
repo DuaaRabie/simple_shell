@@ -22,14 +22,14 @@ int _strncmp(char *s1, char *s2, int n);
 char **create_argv(char *cmd);
 void free_all(char **argv, char *cmd, char *cmd_path);
 char *read_cmd(void);
-int built_cmd(char **argv, char *cmd);
+int built_cmd(char **argv, char **av, char *cmd);
 char *get_path(char **argv);
 void _env(void);
 void print_error(char ch, char **argv, char **av);
 void exit_fun(char **argv, char *cmd);
 int _setenv(char *var_name, char *var_value, int flag);
 int _unsetenv(char *var_name);
-void _cd(char *dir);
+void _cd(char *dir, char **argv, char **av);
 int _getline(char **line, size_t *size, FILE *fp);
 
 #endif
