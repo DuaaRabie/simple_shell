@@ -47,11 +47,16 @@ int _setenv(char *var_name, char *var_value, int flag)
 		while (env[i] && _strncmp(env[i], var_name, _strlen(var_name)) != 0)
 			i++;
 		if (env[i] == NULL)
+		{
 			return (-1);
+		}
 		temp = realloc(env[i], sizeof(char) * (_strlen(var_name) +
 					_strlen(var_value) + 2));
 		if (temp == NULL)
+		{
+			perror("can't reallocate memory");
 			return (-1);
+		}
 		env[i] = temp;
 		_strcpy(env[i], var_name);
 		_strcat(env[i], "=");
@@ -76,7 +81,7 @@ int _unsetenv(char *var_name)
 		while (env[i] && _strncmp(env[i], var_name, _strlen(var_name)) != 0)
 			i++;
 		if (env[i] == NULL)
-			return (-1);
+			return (0);
 		free(env[i]);
 		for (; env[i]; i++)
 			env[i] = env[i + 1];
