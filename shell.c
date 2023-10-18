@@ -28,6 +28,8 @@ void free_all(char **argv, char *cmd, char *cmd_path)
  */
 int exe_cmd(char **argv, char *cmd, char *cmd_path, char **av)
 {
+	char **env = environ;
+
 	pid_t pid;
 
 	pid = fork();
@@ -38,7 +40,7 @@ int exe_cmd(char **argv, char *cmd, char *cmd_path, char **av)
 	}
 	if (pid == 0)
 	{
-		if (execve(cmd_path, argv, environ) == -1)
+		if (execve(cmd_path, argv, env) == -1)
 		{
 			print_error('d', argv, av);
 			free_all(argv, cmd, cmd_path);
