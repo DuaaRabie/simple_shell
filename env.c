@@ -25,15 +25,19 @@ void _env(void)
 int _setenv(char *var_name, char *var_value, int flag)
 {
 	char *check = NULL, **env = environ, *temp = NULL;
-	int i = 0;
+	int i = 0, new_len = _strlen(var_name) + _strlen(var_value) + 2;
 
+	if (var_name == NULL || var_value == NULL)
+	{
+		perror("no arguments");
+		return (-1);
+	}
 	check = getenv(var_name);
 	if (check == NULL)
 	{
 		while (env[i])
 			i++;
-		temp = realloc(env[i], sizeof(char) * (_strlen(var_name)
-					+ _strlen(var_value) + 2));
+		temp = realloc(env[i], sizeof(char) * new_len);
 		if (temp == NULL)
 			return (-1);
 		env[i] = temp;
@@ -48,15 +52,12 @@ int _setenv(char *var_name, char *var_value, int flag)
 			i++;
 		if (env[i] == NULL)
 		{
+			perror("variable not found");
 			return (-1);
 		}
-		temp = realloc(env[i], sizeof(char) * (_strlen(var_name) +
-					_strlen(var_value) + 2));
+		temp = realloc(env[i], sizeof(char) * new_len);
 		if (temp == NULL)
-		{
-			perror("can't reallocate memory");
 			return (-1);
-		}
 		env[i] = temp;
 		_strcpy(env[i], var_name);
 		_strcat(env[i], "=");
