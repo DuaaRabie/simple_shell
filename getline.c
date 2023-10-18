@@ -33,7 +33,7 @@ void check_line(char **line, size_t *size, char *buffer, char *ptr, int *round)
 	}
 	if (newlines > 1 && *round < newlines)
 	{
-		ptr = strdup(buffer);
+		ptr = _strdup(buffer);
 		for (i = 0; ptr[i] != '\0'; i++)
 		{
 			if (ptr[i] == '\n')

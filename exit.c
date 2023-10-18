@@ -9,7 +9,7 @@
 void exit_fun(char **argv, char *cmd)
 {
 	int exit_value = 0, i = 0;
-	static int j;
+/*	static int j;*/
 	char *not_num = ": numeric argument required\n";
 
 	while (argv[1])
@@ -26,7 +26,7 @@ void exit_fun(char **argv, char *cmd)
 			write(1, "./hsh: exit: ", 13);
 			write(1, argv[1], _strlen(argv[1]));
 			write(1, not_num, _strlen(not_num));
-			exit_value = j++;
+			exit_value = 0;
 			break;
 
 		}

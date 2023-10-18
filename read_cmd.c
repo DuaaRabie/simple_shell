@@ -19,7 +19,6 @@ char *read_cmd(void)
 	{
 		if (isatty(STDIN_FILENO))
 			write(1, "\n", 1);
-
 		free(cmd);
 		return (NULL);
 	}
