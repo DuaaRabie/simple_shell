@@ -62,7 +62,8 @@ int _setenv(char *var_name, char *var_value, int flag)
 	{
 		while (env[i])
 			i++;
-		copy_var(var_name, var_value, i, env);
+		if (copy_var(var_name, var_value, i, env) == -1)
+				return (-1);
 		env[++i] = NULL;
 	}
 	if (check != NULL && flag != 0)
@@ -93,7 +94,7 @@ int _unsetenv(char *var_name)
 	if (var_name == NULL)
 	{
 		perror("few arguments");
-		return (-1);
+		return (0);
 	}
 	check = getenv(var_name);
 	if (check != NULL)
