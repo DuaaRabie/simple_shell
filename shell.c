@@ -11,9 +11,9 @@ void free_all(char **argv, char *cmd, char *cmd_path)
 {
 	int i = 0;
 
+
 	while (argv[i] && argv && argv[0] != cmd_path)
 		free(argv[i++]);
-
 	free(argv);
 	free(cmd);
 	free(cmd_path);
@@ -37,6 +37,7 @@ int exe_cmd(char **argv, char *cmd, char *cmd_path, char **av)
 	if (pid == -1)
 	{
 		perror("child doesn't exist");
+		free_all(argv, cmd, cmd_path);
 		return (-1);
 	}
 	if (pid == 0)
@@ -81,6 +82,9 @@ int main(int ac, char **av)
 	(void)ac;
 	while (1)
 	{
+		argv = NULL;
+		cmd_path = NULL;
+		cmd = NULL;
 		cmd = read_cmd();
 		if (cmd == NULL)
 			break;
