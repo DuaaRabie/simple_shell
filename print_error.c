@@ -20,7 +20,7 @@ void print_error(char ch, char **argv, char **av)
 		switch (ch)
 		{
 			case 'c':
-				write(1, c, _strlen(d));
+				write(1, c, _strlen(c));
 				break;
 			case 'd':
 				write(1, d, _strlen(d));
