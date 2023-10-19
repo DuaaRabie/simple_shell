@@ -13,7 +13,7 @@ char *read_cmd(void)
 
 	if (isatty(STDIN_FILENO))
 		write(1, "($) ", 4);
-	cmd_check = _getline(&cmd, &cmd_len, stdin);
+	cmd_check = getline(&cmd, &cmd_len, stdin);
 
 	if (cmd_check == -1)
 	{
