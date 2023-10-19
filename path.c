@@ -11,10 +11,10 @@ char *get_path(char **argv)
 	char *all_paths = NULL, *paths_copy = NULL;
 	struct stat statbuf;
 
-	if (getenv("PATH") == NULL)
-		return (NULL);
 	if (stat(argv[0], &statbuf) == 0)
 	{
+		if (getenv("PATH") == NULL)
+			return (NULL);
 		cmd_path = _strdup(argv[0]);
 		return (cmd_path);
 	}
