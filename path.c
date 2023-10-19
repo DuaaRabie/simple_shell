@@ -13,7 +13,7 @@ char *get_path(char **argv)
 
 	if (stat(argv[0], &statbuf) == 0)
 	{
-		if (getenv("PATH") == NULL)
+		if (getenv("PATH") == NULL && (_strchr(argv[0], '/')) == NULL)
 			return (NULL);
 		cmd_path = _strdup(argv[0]);
 		return (cmd_path);
