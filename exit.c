@@ -3,7 +3,8 @@
 /**
  * exit_fun - exit the shell
  * @argv: arguments vector
- * @cmd: command
+ * @cmd: commandi
+ * @status: pointer to exit status
  * Return: nothing
  */
 void exit_fun(char **argv, char *cmd, int *status)
@@ -12,6 +13,8 @@ void exit_fun(char **argv, char *cmd, int *status)
 	char *not_num = ": numeric argument required\n";
 	char *not_num2 = "Illegal number";
 
+	if (WIFEXITED(*status))
+		exit_value = WEXITSTATUS(*status);
 	while (argv[1])
 	{
 		if (argv[1][i] >= '0' && argv[1][i] <= '9')
@@ -40,8 +43,6 @@ void exit_fun(char **argv, char *cmd, int *status)
 			break;
 		}
 	}
-	if (WIFEXITED(*status))
-		exit_value = WEXITSTATUS(*status);
 	free_all(argv, cmd, NULL);
 	exit(exit_value);
 }
