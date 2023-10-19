@@ -27,10 +27,9 @@ void free_all(char **argv, char *cmd, char *cmd_path)
  * @av: arguments vector
  * Return: nothing
  */
-int exe_cmd(char **argv, char *cmd, char *cmd_path, char **av)
+int exe_cmd(char **argv, char *cmd, char *cmd_path, char **av, int *status)
 {
 	char **env = environ;
-
 	pid_t pid;
 
 	pid = fork();
@@ -49,7 +48,7 @@ int exe_cmd(char **argv, char *cmd, char *cmd_path, char **av)
 			return (0);
 		}
 	}
-	wait(NULL);
+	waitpid(pid, status, 0);
 	return (1);
 }
 
@@ -77,7 +76,7 @@ void error_msg(char **av, char **argv)
 int main(int ac, char **av)
 {
 	char *cmd = NULL, **argv = NULL, *cmd_path = NULL;
-	int exe_return, built_check;
+	int exe_return, built_check, status = 0;
 
 	(void)ac;
 	while (1)
@@ -93,7 +92,7 @@ int main(int ac, char **av)
 			argv = create_argv(cmd);
 			if (argv == NULL)
 				return (-1);
-			built_check = built_cmd(argv, av, cmd);
+			built_check = built_cmd(argv, av, cmd, &status);
 			if (built_check == 0)
 			{
 				cmd_path = get_path(argv);
@@ -101,7 +100,7 @@ int main(int ac, char **av)
 					error_msg(av, argv);
 				else
 				{
-					exe_return = exe_cmd(argv, cmd, cmd_path, av);
+					exe_return = exe_cmd(argv, cmd, cmd_path, av, &status);
 					if (exe_return == -1)
 						return (exe_return);
 					else if (exe_return == 0)

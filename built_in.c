@@ -7,7 +7,7 @@
  * @av: arguments vector
  * Return: -1 for exit || 0
  */
-int built_cmd(char **argv, char **av, char *cmd)
+int built_cmd(char **argv, char **av, char *cmd, int *status)
 {
 	char *copy = _strdup(cmd);
 
@@ -19,7 +19,7 @@ int built_cmd(char **argv, char **av, char *cmd)
 	free(copy);
 
 	if (_strcmp(argv[0], "exit") == 0)
-		exit_fun(argv, cmd);
+		exit_fun(argv, cmd, status);
 	if (_strcmp(argv[0], "env") == 0)
 	{
 		free_all(argv, cmd, NULL);

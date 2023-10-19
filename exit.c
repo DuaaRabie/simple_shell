@@ -6,7 +6,7 @@
  * @cmd: command
  * Return: nothing
  */
-void exit_fun(char **argv, char *cmd)
+void exit_fun(char **argv, char *cmd, int *status)
 {
 	int exit_value = 0, i = 0;
 	char *not_num = ": numeric argument required\n";
@@ -40,6 +40,8 @@ void exit_fun(char **argv, char *cmd)
 			break;
 		}
 	}
+	if (WIFEXITED(*status))
+		exit_value = WEXITSTATUS(*status);
 	free_all(argv, cmd, NULL);
 	exit(exit_value);
 }
