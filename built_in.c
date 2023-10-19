@@ -12,6 +12,7 @@ int built_cmd(char **argv, char **av, char *cmd, int *status)
 {
 	char *copy = _strdup(cmd);
 
+
 	if (strtok(copy, " \n") == NULL)
 	{
 		free_all(argv, cmd, copy);
