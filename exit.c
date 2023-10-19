@@ -25,17 +25,17 @@ void exit_fun(char **argv, char *cmd, int *status)
 				break;
 			if (isatty(STDIN_FILENO))
 			{
-				write(1, "./hsh: exit: ", 13);
-				write(1, argv[1], _strlen(argv[1]));
-				write(1, not_num, _strlen(not_num));
+				write(2, "./hsh: exit: ", 13);
+				write(2, argv[1], _strlen(argv[1]));
+				write(2, not_num, _strlen(not_num));
 			}
 			else
 			{
-				write(1, "./hsh: 1: exit: ", 16);
-				write(1, not_num2, _strlen(not_num2));
-				write(1, ": ", 2);
-				write(1, argv[1], _strlen(argv[1]));
-				write(1, "\n", 1);
+				write(2, "./hsh: 1: exit: ", 16);
+				write(2, not_num2, _strlen(not_num2));
+				write(2, ": ", 2);
+				write(2, argv[1], _strlen(argv[1]));
+				write(2, "\n", 1);
 			}
 			exit_value = 2;
 			break;
