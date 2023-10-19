@@ -60,15 +60,11 @@ int exe_cmd(char **argv, char *cmd, char *cmd_path, char **av)
  */
 void error_msg(char **av, char **argv)
 {
-	if (isatty(STDIN_FILENO))
-		print_error('d', argv, av);
+
+	if ((_strchr(argv[0], '/')) == NULL)
+		print_error('c', argv, av);
 	else
-	{
-		if ((_strchr(argv[0], '/')) == NULL)
-			print_error('c', argv, av);
-		else
-			print_error('d', argv, av);
-	}
+		print_error('d', argv, av);
 }
 
 /**
