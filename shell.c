@@ -127,7 +127,7 @@ int main(int ac, char **av)
 		{
 			argv = create_argv(cmd);
 			if (argv == NULL)
-				return (-1);
+				exit(127);
 			built_check = built_cmd(argv, av, cmd, &status);
 			if (built_check == 0)
 			{
