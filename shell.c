@@ -69,6 +69,38 @@ void error_msg(char **av, char **argv)
 }
 
 /**
+ * check_path - check if path available and it accessible
+ * @argv: command vector
+ * @av: arguments vector
+ * @cmd: command line
+ * @status: pointer to exit status
+ * Return: 0 | 1 | -1
+ */
+int check_path(char **av, char **argv, char *cmd, int *status)
+{
+	char *cmd_path = NULL;
+	int exe_return;
+
+
+	cmd_path = get_path(argv);
+	if (cmd_path == NULL)
+		error_msg(av, argv);
+	else
+	{
+		if (access(cmd_path, X_OK) != 0)
+			print_error('d', argv, av);
+		else
+		{
+			exe_return = exe_cmd(argv, cmd, cmd_path, av, status);
+			if (exe_return == -1 || exe_return == 0)
+				return (exe_return);
+		}
+	}
+	free_all(argv, cmd, cmd_path);
+	return (1);
+}
+
+/**
  * main - entry point
  * @ac: count of arguments
  * @av: vector of arguments
@@ -76,15 +108,12 @@ void error_msg(char **av, char **argv)
  */
 int main(int ac, char **av)
 {
-	char *cmd = NULL, **argv = NULL, *cmd_path = NULL;
-	int exe_return, built_check, status = 0;
+	char *cmd = NULL, **argv = NULL;
+	int path_check, built_check, status = 0;
 
 	(void)ac;
 	while (1)
 	{
-		argv = NULL;
-		cmd_path = NULL;
-		cmd = NULL;
 		cmd = read_cmd();
 		if (cmd == NULL)
 			break;
@@ -96,20 +125,9 @@ int main(int ac, char **av)
 			built_check = built_cmd(argv, av, cmd, &status);
 			if (built_check == 0)
 			{
-				cmd_path = get_path(argv);
-				if (cmd_path == NULL)
-					error_msg(av, argv);
-				else if (access(cmd_path, X_OK) != 0)
-					print_error('d', argv, av);
-				else
-				{
-					exe_return = exe_cmd(argv, cmd, cmd_path, av, &status);
-					if (exe_return == -1)
-						return (exe_return);
-					else if (exe_return == 0)
-						return (exe_return);
-				}
-				free_all(argv, cmd, cmd_path);
+				path_check = check_path(av, argv, cmd, &status);
+				if (path_check == 0 || path_check == -1)
+					return (path_check);
 			}
 		}
 		else
