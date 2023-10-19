@@ -84,11 +84,17 @@ int check_path(char **av, char **argv, char *cmd, int *status)
 
 	cmd_path = get_path(argv);
 	if (cmd_path == NULL)
+	{
 		error_msg(av, argv);
+		*status = 127;
+	}
 	else
 	{
 		if (access(cmd_path, X_OK) != 0)
+		{
 			print_error('d', argv, av);
+			*status = 127;
+		}
 		else
 		{
 			exe_return = exe_cmd(argv, cmd, cmd_path, av, status);
@@ -116,7 +122,7 @@ int main(int ac, char **av)
 	{
 		cmd = read_cmd();
 		if (cmd == NULL)
-			break;
+			exit(status);
 		if (!(cmd[0] == '\n' && isatty(STDIN_FILENO)))
 		{
 			argv = create_argv(cmd);
