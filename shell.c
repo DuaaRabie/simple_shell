@@ -25,6 +25,7 @@ void free_all(char **argv, char *cmd, char *cmd_path)
  * @cmd: the command line
  * @cmd_path: the command path
  * @av: arguments vector
+ * @status: pointer to exit status
  * Return: nothing
  */
 int exe_cmd(char **argv, char *cmd, char *cmd_path, char **av, int *status)

@@ -5,6 +5,7 @@
  * @argv: command vector
  * @cmd: command
  * @av: arguments vector
+ * @status: pointer to exit status
  * Return: -1 for exit || 0
  */
 int built_cmd(char **argv, char **av, char *cmd, int *status)
