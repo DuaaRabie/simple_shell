@@ -2,8 +2,9 @@
 
 /**
  * built_cmd - exit the shell
- * @argv: arguments vector
+ * @argv: command vector
  * @cmd: command
+ * @av: arguments vector
  * Return: -1 for exit || 0
  */
 int built_cmd(char **argv, char **av, char *cmd)

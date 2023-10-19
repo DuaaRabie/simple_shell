@@ -3,6 +3,8 @@
 /**
  * _cd - change directory
  * @dir: directory
+ * @argv: command vector
+ * @av: arguments vector
  * Return: nothing
  */
 void _cd(char *dir, char **argv, char **av)
