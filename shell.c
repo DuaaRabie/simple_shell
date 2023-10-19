@@ -133,7 +133,7 @@ int main(int ac, char **av)
 			{
 				path_check = check_path(av, argv, cmd, &status);
 				if (path_check == 0 || path_check == -1)
-					return (path_check);
+					exit(127);
 			}
 		}
 		else
