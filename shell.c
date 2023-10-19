@@ -99,6 +99,8 @@ int main(int ac, char **av)
 				cmd_path = get_path(argv);
 				if (cmd_path == NULL)
 					error_msg(av, argv);
+				else if (access(cmd_path, X_OK) != 0)
+					print_error('d', argv, av);
 				else
 				{
 					exe_return = exe_cmd(argv, cmd, cmd_path, av, &status);
@@ -112,7 +114,6 @@ int main(int ac, char **av)
 		}
 		else
 			free(cmd);
-
 	}
 	return (0);
 }
