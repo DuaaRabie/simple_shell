@@ -31,7 +31,7 @@ void exit_fun(char **argv, char *cmd, int *status)
 			}
 			else
 			{
-				write(1, "./hsh: 1: exit: ", 16 );
+				write(1, "./hsh: 1: exit: ", 16);
 				write(1, not_num2, _strlen(not_num2));
 				write(1, ": ", 2);
 				write(1, argv[1], _strlen(argv[1]));
