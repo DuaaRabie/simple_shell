@@ -86,7 +86,7 @@ int check_path(char **av, char **argv, char *cmd, int *status)
 	if (cmd_path == NULL)
 	{
 		error_msg(av, argv);
-		*status = 127;
+		exit(127);
 	}
 	else
 	{
