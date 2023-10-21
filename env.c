@@ -66,7 +66,7 @@ int _setenv(char *var_name, char *var_value, int flag)
 			i++;
 		if (copy_var(var_name, var_value, i) == -1)
 			return (-1);
-		env[++i] = NULL;
+		environ[++i] = NULL;
 	}
 	if (check != NULL && flag != 0)
 	{
