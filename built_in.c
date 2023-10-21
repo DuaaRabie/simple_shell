@@ -12,20 +12,18 @@ int built_cmd(char **argv, char **av, char *cmd, int *status)
 {
 	char *copy = _strdup(cmd);
 
-
 	if (strtok(copy, " \n") == NULL)
 	{
 		free_all(argv, cmd, copy);
 		return (2);
 	}
 	free(copy);
-
 	if (_strcmp(argv[0], "exit") == 0)
 		exit_fun(argv, cmd, status);
 	if (_strcmp(argv[0], "env") == 0)
 	{
-		free_all(argv, cmd, NULL);
 		_env();
+		free_all(argv, cmd, NULL);
 		return (1);
 	}
 	if (_strcmp(argv[0], "unsetenv") == 0)
@@ -36,7 +34,10 @@ int built_cmd(char **argv, char **av, char *cmd, int *status)
 	}
 	if (_strcmp(argv[0], "setenv") == 0)
 	{
-		_setenv(argv[1], argv[2], 1);
+		if (argv[1] && argv[2])
+		{
+			_setenv(argv[1], argv[2], 1);
+		}
 		free_all(argv, cmd, NULL);
 		return (1);
 	}

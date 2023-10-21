@@ -11,7 +11,6 @@ void free_all(char **argv, char *cmd, char *cmd_path)
 {
 	int i = 0;
 
-
 	while (argv[i] && argv && argv[0] != cmd_path)
 		free(argv[i++]);
 	free(argv);

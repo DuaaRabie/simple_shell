@@ -34,10 +34,11 @@ int copy_var(char *var_name, char *var_value, int i, char **env)
 		perror("allocation faild");
 		return (-1);
 	}
-	env[i] = temp;
-	_strcpy(env[i], var_name);
-	_strcat(env[i], "=");
-	_strcat(env[i], var_value);
+	_strcpy(temp, var_name);
+	_strcat(temp, "=");
+	_strcat(temp, var_value);
+	env[i] = _strdup(temp);
+	free(temp);
 	return (0);
 }
 

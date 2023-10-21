@@ -18,6 +18,7 @@ char *_strdup(char *str);
 char *_strchr(char *s, char c);
 int _strcmp(char *s1, char *s2);
 int _strncmp(char *s1, char *s2, int n);
+char *_memcpy(char *dest, char *src, unsigned int n);
 
 char **create_argv(char *cmd);
 void free_all(char **argv, char *cmd, char *cmd_path);
