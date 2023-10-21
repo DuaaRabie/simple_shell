@@ -77,6 +77,7 @@ int _setenv(char *var_name, char *var_value, int flag)
 			perror("variable not found");
 			return (-1);
 		}
+		free(env[i]);
 		if (copy_var(var_name, var_value, i, env) == -1)
 			return (-1);
 	}
