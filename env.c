@@ -28,7 +28,7 @@ int copy_var(char *var_name, char *var_value, int i, char **env)
 	int new_len = _strlen(var_name) + _strlen(var_value) + 2;
 	char *temp = NULL;
 
-	temp = malloc(env[i], sizeof(char) * new_len);
+	temp = malloc(sizeof(char) * new_len);
 	if (temp == NULL)
 	{
 		perror("allocation faild");
