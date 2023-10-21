@@ -23,7 +23,7 @@ void _env(void)
  * @env: environment variable
  * Return: nothing
  */
-int copy_var(char *var_name, char *var_value, int i, char **env)
+int copy_var(char *var_name, char *var_value, int i)
 {
 	int new_len = _strlen(var_name) + _strlen(var_value) + 2;
 	char *temp = NULL;
@@ -37,7 +37,7 @@ int copy_var(char *var_name, char *var_value, int i, char **env)
 	_strcpy(temp, var_name);
 	_strcat(temp, "=");
 	_strcat(temp, var_value);
-	env[i] = _strdup(temp);
+	environ[i] = _strdup(temp);
 	free(temp);
 	return (0);
 }
@@ -64,7 +64,7 @@ int _setenv(char *var_name, char *var_value, int flag)
 	{
 		while (env[i])
 			i++;
-		if (copy_var(var_name, var_value, i, env) == -1)
+		if (copy_var(var_name, var_value, i) == -1)
 			return (-1);
 		env[++i] = NULL;
 	}
@@ -77,8 +77,8 @@ int _setenv(char *var_name, char *var_value, int flag)
 			perror("variable not found");
 			return (-1);
 		}
-		free(env[i]);
-		if (copy_var(var_name, var_value, i, env) == -1)
+		free(environ[i]);
+		if (copy_var(var_name, var_value, i) == -1)
 			return (-1);
 	}
 	return (0);
@@ -106,9 +106,9 @@ int _unsetenv(char *var_name)
 			i++;
 		if (env[i] == NULL)
 			return (-1);
-		free(env[i]);
-		for (; env[i]; i++)
-			env[i] = env[i + 1];
+		free(environ[i]);
+		for (; environ[i]; i++)
+			environ[i] = environ[i + 1];
 	}
 
 	return (0);
